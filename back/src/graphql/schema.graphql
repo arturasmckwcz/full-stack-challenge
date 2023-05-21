@@ -1,0 +1,12 @@
+type Room {
+  id: Int!
+  name: String!
+  description: String!
+  image: String!
+  booked: Boolean!
+  desks: Int!
+}
+
+type Query {
+  rooms: [Room]
+}
