@@ -1,57 +1,30 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
+import fixtures from '../testHelpers/testFixtures.json';
 import RoomCard from './RoomCard';
+import { renderWithContextAndMockedProvider } from '../testHelpers';
 
-jest.mock('../contexts/RoomsContext.tsx', () => ({
-  __esModule: true,
-  useRoomsContext: () => ({ setRooms: jest.fn() }),
-}));
+test('renders all defaults and booked but not Desks:', async () => {
+  renderWithContextAndMockedProvider(<RoomCard room={fixtures.rooms[0]} />);
 
-test('renders booked but not Desks:', () => {
-  const room = {
-    id: 1,
-    name: '',
-    description: '',
-    booked: true,
-    desks: 0,
-    image: '',
-  };
-  render(<RoomCard room={room} />);
-
-  const bookedElement = screen.getByText(/booked/);
-  expect(bookedElement).toBeInTheDocument();
-  const cancelElement = screen.getByText(/cancel booking/);
-  expect(cancelElement).toBeInTheDocument();
-  const desksElement = screen.queryByText(/Desks:/);
-  expect(desksElement).not.toBeInTheDocument();
+  expect(screen.getByText(/TV-Room/)).toBeInTheDocument();
+  expect(
+    screen.getByText(/Wednesday is horror movie night!/),
+  ).toBeInTheDocument();
+  expect(screen.getByText(/edit/)).toBeInTheDocument();
+  expect(screen.getByText(/delete/)).toBeInTheDocument();
+  expect(screen.getByText(/booked/)).toBeInTheDocument();
+  expect(screen.getByText(/cancel booking/)).toBeInTheDocument();
+  expect(screen.queryByText(/Desks:/)).not.toBeInTheDocument();
 });
 
 test('renders free', () => {
-  const room = {
-    id: 1,
-    name: '',
-    description: '',
-    booked: false,
-    desks: 0,
-    image: '',
-  };
-  render(<RoomCard room={room} />);
-  const freeElement = screen.getByText(/free/);
-  expect(freeElement).toBeInTheDocument();
-  const bookElement = screen.getByText(/book/);
-  expect(bookElement).toBeInTheDocument();
+  renderWithContextAndMockedProvider(<RoomCard room={fixtures.rooms[2]} />);
+  expect(screen.getByText(/free/)).toBeInTheDocument();
+  expect(screen.getByText(/book/)).toBeInTheDocument();
 });
 
-test('renders Desks: 16', () => {
-  const room = {
-    id: 1,
-    name: '',
-    description: '',
-    booked: false,
-    desks: 16,
-    image: '',
-  };
-  render(<RoomCard room={room} />);
-  const deskElement = screen.getByText(/Desks: 16/);
-  expect(deskElement).toBeInTheDocument();
+test('renders not booked nor free but Desks: 16', () => {
+  renderWithContextAndMockedProvider(<RoomCard room={fixtures.rooms[3]} />);
+  expect(screen.getByText(/Desks: 16/)).toBeInTheDocument();
 });

@@ -1,35 +1,71 @@
+import { ApolloError } from '@apollo/client';
 import {
   Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 
-import { RoomsQuery, useRoomsQuery } from '../api/mockGraphql';
+import { Room, useRoomsQuery } from '../graphql';
 
-interface RoomsContextType {
-  rooms: RoomsQuery[];
-  setRooms: Dispatch<SetStateAction<RoomsQuery[]>>;
+type RoomsQueryResult = {
+  loading: boolean;
+  error?: ApolloError;
+  rooms: Room[];
+};
+
+export interface IRoomsContext {
+  setRooms: (rooms: Room[]) => void;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  roomsQueryResult: RoomsQueryResult;
 }
 
-const RoomsContext = createContext<RoomsContextType | undefined>(undefined);
+const RoomsContext = createContext<IRoomsContext | undefined>(undefined);
 
 interface RoomsProviderProps {
+  value?: IRoomsContext;
   children: ReactNode;
 }
 
-export const RoomsProvider = ({ children }: RoomsProviderProps) => {
-  const [rooms, setRooms] = useState<RoomsQuery[]>([]);
+export const RoomsProvider = ({ value, children }: RoomsProviderProps) => {
+  const [roomsQueryResult, setRoomsQueryResult] = useState<RoomsQueryResult>(
+    {} as RoomsQueryResult,
+  );
   const [search, setSearch] = useState<string>('');
-  const { loading, error } = useRoomsQuery({
-    onCompleted: data => !rooms.length && setRooms(data.rooms),
-  });
+  const queryResult = useRoomsQuery({});
+
+  const setRooms = (rooms: Room[]) => {
+    setRoomsQueryResult(prev => ({ ...prev, rooms }));
+  };
+
+  useEffect(() => {
+    (async () => {
+      const result = await queryResult;
+      if (result) {
+        setRoomsQueryResult({
+          ...result,
+          rooms: result.data?.rooms as Room[],
+          // rooms: require('../testHelpers/testFixtures.json').rooms,
+        } as RoomsQueryResult);
+      }
+    })();
+  }, [queryResult]);
+
   return (
-    <RoomsContext.Provider value={{ rooms, setRooms, search, setSearch }}>
+    <RoomsContext.Provider
+      value={
+        value ?? {
+          setRooms,
+          search,
+          setSearch,
+          roomsQueryResult,
+        }
+      }
+    >
       {children}
     </RoomsContext.Provider>
   );

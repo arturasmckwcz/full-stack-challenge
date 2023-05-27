@@ -1,9 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+
 import App from './App';
+import { renderWithContextAndMockedProvider } from './testHelpers';
 
 test('renders ROOM PLANNER', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/ROOM PLANNER/i);
-  expect(linkElement).toBeInTheDocument();
+  renderWithContextAndMockedProvider(<App />);
+  expect(screen.getByText(/ROOM PLANNER/i)).toBeInTheDocument();
 });

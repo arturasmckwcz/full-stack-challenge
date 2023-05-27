@@ -1,8 +1,8 @@
-import { RoomsQuery } from '../api/mockGraphql';
+import { Room } from '../graphql';
 import RoomBookingButton from './RoomBookingButton';
 
 interface Props {
-  room: RoomsQuery;
+  room: Room;
 }
 
 const RoomButtons = ({ room }: Props) => (

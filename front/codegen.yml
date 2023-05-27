@@ -1,0 +1,32 @@
+schema:
+  - http://localhost:3007/graphql:
+      headers:
+        x-auth-token: graphql-codegen@arturasmckwcz
+
+documents: src/**/*.graphql
+
+generates:
+  src/graphql/schema.generated.ts:
+    plugins:
+      - typescript
+
+  src/graphql/:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: schema.generated.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+
+config:
+  futureProofUnions: true
+  useTypeImports: true
+  namingConvention:
+    enumValues: change-case-all#upperCase
+  scalars:
+    DateTime: string
+    JSONObject: Record<string, unknown>
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write

@@ -1,15 +1,24 @@
 import RoomCard from './RoomCard';
 import { useRoomsContext } from '../contexts/RoomsContext';
 import { roomsFilter } from '../helpers';
+import RoomsLoading from './RoomsLoading';
+import RoomsError from './RoomsError';
+import { Room } from '../graphql';
 
 const RoomsList = () => {
-  const { rooms, search } = useRoomsContext();
+  const {
+    search,
+    roomsQueryResult: { loading, error, rooms },
+  } = useRoomsContext();
 
   return (
     <div className='rooms-list'>
-      {roomsFilter(rooms, search).map(room => (
-        <RoomCard key={room.id} room={room} />
-      ))}
+      {loading && <RoomsLoading />}
+      {error && <RoomsError error={error} />}
+      {rooms &&
+        roomsFilter(rooms, search).map((room: Room) => (
+          <RoomCard key={room.id} room={room} />
+        ))}
     </div>
   );
 };

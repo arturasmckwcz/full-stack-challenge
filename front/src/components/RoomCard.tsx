@@ -1,10 +1,10 @@
-import { RoomsQuery } from '../api/mockGraphql';
+import { Room } from '../graphql';
 import RoomButtons from './RoomButtons';
 import RoomImage from './RoomImage';
 import RoomInfo from './RoomInfo';
 
 interface Props {
-  room: RoomsQuery;
+  room: Room;
 }
 
 const RoomCard = ({ room }: Props) => (

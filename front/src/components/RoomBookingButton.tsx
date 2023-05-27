@@ -1,36 +1,33 @@
 import { useCallback } from 'react';
 
-import {
-  RoomsQuery,
-  useRoomBookedMutation,
-  rooms as data,
-} from '../api/mockGraphql';
+// import { useRoomBookedMutation } from '../api/mockGraphql';
 import { useRoomsContext } from '../contexts/RoomsContext';
+import { Room } from '../graphql';
+import { updateRoom } from '../helpers';
 
 interface Props {
-  room: RoomsQuery;
+  room: Room;
 }
 
-interface OnClickArgs extends Props {}
-
 const RoomBookingButton = ({ room }: Props) => {
-  const { setRooms } = useRoomsContext();
-  const [bookRoom] = useRoomBookedMutation();
+  const {
+    roomsQueryResult: { rooms },
+    setRooms,
+  } = useRoomsContext();
+  // const [bookRoom] = useRoomBookedMutation();
   const onClickHandler = useCallback(
-    async ({ room }: OnClickArgs) => {
+    async (room: Room) => {
       const booked = !room.booked;
-      await bookRoom({ id: room.id, booked });
-      setRooms(prev =>
-        prev.map(item => (item.id === room.id ? { ...item, booked } : item)),
-      );
+      // await bookRoom({ id: room.id, booked });
+      setRooms(updateRoom(rooms, { ...room, booked }));
     },
-    [bookRoom, setRooms],
+    [rooms, setRooms],
   );
 
   return (
     <button
       className='button room-book-cancel'
-      onClick={() => onClickHandler({ room })}
+      onClick={() => onClickHandler(room)}
     >
       {room.booked ? 'cancel booking' : 'book'}
     </button>
