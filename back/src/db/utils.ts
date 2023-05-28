@@ -1,7 +1,7 @@
 import { roomsAndDesks } from './data';
 import { Room, RoomsAndDesks } from './types';
 
-export const getRooms = async (roomsAndDesks: RoomsAndDesks): Promise<Room[]> =>
+export const getRooms = (roomsAndDesks: RoomsAndDesks): Room[] =>
   roomsAndDesks.rooms.map(room => {
     room.desks =
       room.desks === null
@@ -13,4 +13,5 @@ export const getRooms = async (roomsAndDesks: RoomsAndDesks): Promise<Room[]> =>
     return room;
   });
 
-export const getRoomsWithNumberOfDesks = () => getRooms(roomsAndDesks);
+export const getRoomsWithNumberOfDesks = async () =>
+  getRooms(await roomsAndDesks());
