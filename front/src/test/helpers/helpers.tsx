@@ -2,8 +2,9 @@ import { JSXElementConstructor } from 'react';
 import { render } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 
-import { IRoomsContext, RoomsProvider } from '../contexts/RoomsContext';
-import { RoomsDocument } from '../graphql';
+import { IRoomsContext, RoomsProvider } from '../../contexts/RoomsContext';
+import { RoomsDocument } from '../../graphql';
+import fixtures from '../e2e/testFixtures.json';
 
 export const renderWithContext = (
   ui: React.ReactElement<any, string | JSXElementConstructor<any>>,
@@ -28,7 +29,7 @@ export const renderWithContextAndMockedProvider = (
           },
           result: {
             data: {
-              rooms: require('./testFixtures.json').rooms,
+              rooms: fixtures.data.rooms,
             },
           },
         },

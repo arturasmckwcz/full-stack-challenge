@@ -9,12 +9,25 @@
   --free-color: #46e05c;
   --gap-base: 18px;
   --border-size: 3px;
+  /* responsivness:
+      ~ font sizes and picture size in md
+      - picture size in sm
+      
+  */
   --container-max-width: 1200px;
+  --room-description-max-width: 254px;
+  --room-card-flex-direction: row;
+  @media (max-width: 992px) {
+    --room-description-max-width: 100px;
+  }
+  @media (max-width: 786px) {
+    --room-card-flex-direction: column;
+  }
 }
 
 .container {
   margin: 0 auto;
-  padding-top: calc(var(--gap-base) / 2);
+  padding: calc(var(--gap-base) / 2) calc(var(--gap-base) * 2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,6 +113,7 @@
 
 .room-card {
   display: flex;
+  flex-direction: var(--room-card-flex-direction);
   box-sizing: border-box;
   width: 100%;
   padding: calc(var(--gap-base) * 2) var(--gap-base);
@@ -128,6 +142,7 @@
 
 .room-description {
   font-size: 1.4rem;
+  max-width: var(--room-description-max-width);
 }
 
 .room-desks {

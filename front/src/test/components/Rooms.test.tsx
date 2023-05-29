@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import fixtures from '../testHelpers/testFixtures.json';
-import Rooms from './Rooms';
-import { renderWithContextAndMockedProvider } from '../testHelpers';
-import * as RoomsContext from '../contexts/RoomsContext';
+import fixtures from '../e2e/testFixtures.json';
+import Rooms from '../../components/Rooms';
+import { renderWithContextAndMockedProvider } from '../helpers';
+import * as RoomsContext from '../../contexts/RoomsContext';
 
 const mockContext = {
-  roomsQueryResult: { loading: false, rooms: fixtures.rooms },
+  roomsQueryResult: { loading: false, rooms: fixtures.data.rooms },
   setRooms: jest.fn(),
   search: '',
   setSearch: jest.fn(),

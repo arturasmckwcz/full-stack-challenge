@@ -6,15 +6,21 @@ interface Props {
 }
 
 const RoomInfo = ({ name, description, booked, desks }: Props) => (
-  <div className='room-info'>
+  <div data-testid={name} className='room-info'>
     <div className='room-name rails-yellow'>{name}</div>
     <div className='room-description'>{description}</div>
     {desks ? (
-      <div className='room-desks'>Desks: {desks}</div>
+      <div data-testid='desks' className='room-desks'>
+        Desks: {desks}
+      </div>
     ) : booked ? (
-      <div className='room-booked background-booked'>booked</div>
+      <div data-testid='bookable' className='room-booked background-booked'>
+        booked
+      </div>
     ) : (
-      <div className='room-booked background-free'>free</div>
+      <div data-testid='bookable' className='room-booked background-free'>
+        free
+      </div>
     )}
   </div>
 );
