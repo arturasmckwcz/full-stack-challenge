@@ -9,19 +9,35 @@
   --free-color: #46e05c;
   --gap-base: 18px;
   --border-size: 3px;
-  /* responsivness:
-      ~ font sizes and picture size in md
-      - picture size in sm
-      
-  */
+  --header-font-size: clamp(2.1rem, 10vw, 3.7rem);
+  --rooms-header-font-size: clamp(36px, 8vw, 3.1rem);
+  --room-name-font-size: clamp(1.6rem, 4vw, 2rem);
+  --room-description-font-size: clamp(1rem, 3vw, 1.4rem);
   --container-max-width: 1200px;
   --room-description-max-width: 254px;
+  --pict-width: clamp(280px, 35vw, 400px);
   --room-card-flex-direction: row;
+  --room-buttons-margin-left: auto;
+  --room-book-cancel-margin-top: auto;
+  --room-buttons-flex-direction: column;
+  --buttons-edit-delete-margin-left: 0;
+  --room-book-cancel-position: relative;
   @media (max-width: 992px) {
-    --room-description-max-width: 100px;
+    --room-description-max-width: 254px;
   }
-  @media (max-width: 786px) {
+  @media (max-width: 768px) {
     --room-card-flex-direction: column;
+    --pict-width: clamp(280px, 60vw, 400px);
+    --room-buttons-margin-left: 0;
+    --room-buttons-flex-direction: row;
+    --buttons-edit-delete-margin-left: auto;
+    --room-book-cancel-margin-top: 0;
+    --room-book-cancel-position: absolute;
+  }
+  @media (hover: none) {
+    .button:hover {
+      background-color: var(--background-color);
+    }
   }
 }
 
@@ -45,14 +61,14 @@
   justify-content: center;
   width: 100%;
   font-weight: 650;
-  font-size: 3.7rem;
+  font-size: var(--header-font-size);
 }
 
 .rooms-header {
-  margin-top: var(--gap-base);
+  /* margin-top: var(--gap-base); */
   display: grid;
   grid-template-columns: auto auto;
-  gap: calc(var(--gap-base) / 2);
+  /* gap: calc(var(--gap-base) / 2); */
   width: 100%;
 }
 
@@ -67,9 +83,10 @@
 }
 
 .rooms-in-rails {
+  margin: var(--gap-base) 0;
   display: inline;
   font-weight: 650;
-  font-size: 3.1rem;
+  font-size: var(--rooms-header-font-size);
   justify-self: start;
   align-self: center;
 }
@@ -88,6 +105,7 @@
 }
 
 .create {
+  margin-left: 5px;
   grid-area: 1/2/3;
   justify-self: end;
   align-self: center;
@@ -122,8 +140,8 @@
 }
 
 .room-image {
-  height: 200px;
-  width: 400px;
+  height: calc(var(--pict-width) / 2);
+  width: var(--pict-width);
   background-color: var(--hover-background-color);
   border-radius: 10px;
 }
@@ -137,11 +155,11 @@
 .room-name {
   align-self: flex-start;
   font-weight: 650;
-  font-size: 2rem;
+  font-size: var(--room-name-font-size);
 }
 
 .room-description {
-  font-size: 1.4rem;
+  font-size: var(--room-description-font-size);
   max-width: var(--room-description-max-width);
 }
 
@@ -165,17 +183,21 @@
 }
 
 .room-buttons {
-  margin-left: auto;
+  margin-left: var(--room-buttons-margin-left);
   display: flex;
-  flex-direction: column;
+  flex-direction: var(--room-buttons-flex-direction);
+  position: relative;
 }
 
 .buttons-edit-delete {
   display: flex;
+  margin-left: var(--buttons-edit-delete-margin-left);
   gap: calc(var(--gap-base) / 2);
 }
 
 .room-book-cancel {
-  margin-top: auto;
+  position: var(--room-book-cancel-position);
+  left: 0;
+  margin-top: var(--room-book-cancel-margin-top);
   align-self: flex-end;
 }
