@@ -1,37 +1,12 @@
-import fs from 'fs';
-
 import { RoomsAndDesks } from './types';
 
-const convertJpgToBase64 = (filePath: string): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      const base64String = data.toString('base64');
-      resolve(base64String);
-    });
-  });
-};
-
-const getBase64 = async (filePath: string): Promise<string> => {
-  try {
-    return await convertJpgToBase64(filePath);
-  } catch (error) {
-    console.error((error as Error).message);
-    return '';
-  }
-};
-
-export const roomsAndDesks = async (): Promise<RoomsAndDesks> => ({
+const data: RoomsAndDesks = {
   rooms: [
     {
       id: 1,
       name: 'TV-Room',
       description: 'Wednesday is horror movie night!',
-      image: await getBase64('./src/db/images/TV-Room.jpg'),
+      image: '',
       booked: true,
       desks: null,
     },
@@ -39,14 +14,14 @@ export const roomsAndDesks = async (): Promise<RoomsAndDesks> => ({
       id: 2,
       name: '101',
       description: 'Backend-Room',
-      image: await getBase64('./src/db/images/101.jpg'),
+      image: '',
       booked: false,
     },
     {
       id: 3,
       name: 'Kicker Room',
       description: 'Come and have some fun!',
-      image: await getBase64('./src/db/images/Kicker Room.jpg'),
+      image: '',
       booked: false,
       desks: null,
     },
@@ -54,7 +29,7 @@ export const roomsAndDesks = async (): Promise<RoomsAndDesks> => ({
       id: 4,
       name: '102',
       description: 'Frontend area',
-      image: await getBase64('./src/db/images/102.jpg'),
+      image: '',
       booked: false,
     },
   ],
@@ -78,4 +53,6 @@ export const roomsAndDesks = async (): Promise<RoomsAndDesks> => ({
     { id: 17, roomId: 4, booked: false },
     { id: 18, roomId: 4, booked: false },
   ],
-});
+};
+
+export default data;

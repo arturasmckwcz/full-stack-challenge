@@ -10,6 +10,7 @@ RUN yarn install --pure-lockfile
 
 COPY dist ./dist
 COPY src/graphql/schema.graphql ./src/graphql/schema.graphql
+COPY src/db/images ./src/db/images
 
 EXPOSE 3000
 

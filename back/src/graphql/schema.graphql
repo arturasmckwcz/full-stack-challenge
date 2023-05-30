@@ -10,3 +10,7 @@ type Room {
 type Query {
   rooms: [Room]
 }
+
+type Mutation {
+  setRoomBooked(roomId: Int!, booked: Boolean!): Boolean
+}
