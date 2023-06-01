@@ -1,4 +1,5 @@
 :root {
+  /* LG viewport */
   --face-color: #000;
   --background-color: #fff;
   --hover-background-color: #eee;
@@ -22,9 +23,11 @@
   --room-buttons-flex-direction: column;
   --buttons-edit-delete-margin-left: 0;
   --room-book-cancel-position: relative;
+  /* MD viewport */
   @media (max-width: 992px) {
     --room-description-max-width: 254px;
   }
+  /* SM viewport */
   @media (max-width: 768px) {
     --room-card-flex-direction: column;
     --pict-width: clamp(280px, 60vw, 400px);
@@ -34,6 +37,17 @@
     --room-book-cancel-margin-top: 0;
     --room-book-cancel-position: absolute;
   }
+  /* XS viewport */
+  @media (max-width: 459px) {
+    --gap-base: 15px;
+    .room-book-cancel {
+      width: 5rem;
+    }
+    .room-book-cancel span {
+      position: absolute;
+      animation: scroll-left 3s linear infinite;
+    }
+  }
   @media (hover: none) {
     .button:hover {
       background-color: var(--background-color);
@@ -41,20 +55,33 @@
   }
 }
 
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
+
 .container {
+  position: relative;
+  overflow: auto;
+  height: 100vh;
+  background-color: var(--background-color);
+
   margin: 0 auto;
-  padding: calc(var(--gap-base) / 2) calc(var(--gap-base) * 2);
+  padding: 0 calc(var(--gap-base) * 2);
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   max-width: var(--container-max-width);
   color: var(--face-color);
-  background-color: var(--background-color);
-  overflow-y: auto;
 }
 
 .header {
+  margin-top: calc(var(--gap-base) / 2);
   border-top: solid var(--border-size) var(--green-color);
   border-bottom: solid var(--border-size) var(--green-color);
   display: flex;
@@ -64,17 +91,28 @@
   font-size: var(--header-font-size);
 }
 
-.rooms-header {
-  /* margin-top: var(--gap-base); */
-  display: grid;
-  grid-template-columns: auto auto;
-  /* gap: calc(var(--gap-base) / 2); */
+.header::before {
+  content: '';
+  position: fixed;
+  top: 0;
   width: 100%;
+  height: calc(var(--gap-base) / 2);
+  background-color: var(--background-color);
+  z-index: 2;
 }
 
-.top-stick {
+.rooms-header {
   position: sticky;
+  top: clamp(3.6rem, 9vh, 5.29rem);
   top: 0;
+  background-color: var(--background-color);
+  z-index: 2;
+
+  padding: 0 calc(var(--gap-base) * 2);
+  padding: 0 calc(var(--gap-base) * 2) calc(var(--gap-base) / 3);
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100%;
 }
 
 .rails-yellow {
@@ -105,6 +143,7 @@
 }
 
 .create {
+  margin: var(--gap-base) 0;
   margin-left: 5px;
   grid-area: 1/2/3;
   justify-self: end;
@@ -196,7 +235,14 @@
 }
 
 .room-book-cancel {
+  display: flex;
+  align-items: center;
   position: var(--room-book-cancel-position);
+  max-width: 100%;
+  margin-right: auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
   left: 0;
   margin-top: var(--room-book-cancel-margin-top);
   align-self: flex-end;

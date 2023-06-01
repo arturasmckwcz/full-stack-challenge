@@ -21,7 +21,7 @@ export type Mutation = {
 
 
 export type MutationSetRoomBookedArgs = {
-  booked?: InputMaybe<Scalars['Boolean']>;
+  booked: Scalars['Boolean'];
   roomId: Scalars['Int'];
 };
 
@@ -129,7 +129,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  setRoomBooked?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationSetRoomBookedArgs, 'roomId'>>;
+  setRoomBooked?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationSetRoomBookedArgs, 'booked' | 'roomId'>>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{

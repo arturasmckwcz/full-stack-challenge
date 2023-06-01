@@ -8,15 +8,15 @@ import { Room } from '../graphql';
 const RoomsList = () => {
   const {
     search,
-    roomsQueryResult: { loading, error, rooms },
+    roomsQueryResult: { loading, error, data },
   } = useRoomsContext();
 
   return (
     <div className='rooms-list'>
       {loading && <RoomsLoading />}
       {error && <RoomsError error={error} />}
-      {rooms &&
-        roomsFilter(rooms, search).map((room: Room) => (
+      {data?.rooms &&
+        roomsFilter(data?.rooms as Room[], search).map((room: Room) => (
           <RoomCard key={room.id} room={room} />
         ))}
     </div>

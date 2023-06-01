@@ -1,3 +1,4 @@
+import { RoomBookedProvider } from '../contexts/RoomBookedContext';
 import { Room } from '../graphql';
 import RoomButtons from './RoomButtons';
 import RoomImage from './RoomImage';
@@ -8,16 +9,18 @@ interface Props {
 }
 
 const RoomCard = ({ room }: Props) => (
-  <div className='room-card'>
-    <RoomImage image={room.image} />
-    <RoomInfo
-      name={room.name}
-      description={room.description}
-      booked={room.booked}
-      desks={room.desks}
-    />
-    <RoomButtons room={room} />
-  </div>
+  <RoomBookedProvider>
+    <div className='room-card'>
+      <RoomImage image={room.image} />
+      <RoomInfo
+        name={room.name}
+        description={room.description}
+        booked={room.booked}
+        desks={room.desks}
+      />
+      <RoomButtons room={room} />
+    </div>
+  </RoomBookedProvider>
 );
 
 export default RoomCard;

@@ -1,3 +1,5 @@
+import RoomBooked from './RoomBooked';
+
 interface Props {
   name: string;
   description: string;
@@ -13,14 +15,8 @@ const RoomInfo = ({ name, description, booked, desks }: Props) => (
       <div data-testid='desks' className='room-desks'>
         Desks: {desks}
       </div>
-    ) : booked ? (
-      <div data-testid='bookable' className='room-booked background-booked'>
-        booked
-      </div>
     ) : (
-      <div data-testid='bookable' className='room-booked background-free'>
-        free
-      </div>
+      <RoomBooked booked={booked} />
     )}
   </div>
 );

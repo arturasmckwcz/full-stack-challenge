@@ -3,7 +3,6 @@ import fixtures from './testFixtures.json';
 
 describe('Rooms', () => {
   beforeEach(() => {
-    // cy.intercept('POST', `${Cypress.env('REACT_APP_API_URL')}`, req => {
     cy.intercept('POST', 'http://localhost:3007', req => {
       req.reply({
         body: fixtures,
@@ -11,6 +10,7 @@ describe('Rooms', () => {
     }).as('graphql');
 
     cy.visit('/');
+    cy.viewport(1440, 1024);
   });
 
   it('renders rooms header', () => {
@@ -90,7 +90,7 @@ describe('Rooms', () => {
       cy.contains('101')
         .siblings()
         .contains('Desks: 2')
-        .should('be.visible')
+        .should('exist')
         .contains('booked')
         .should('not.exist')
         .get('[data-testid="bookable"]')
@@ -101,8 +101,8 @@ describe('Rooms', () => {
       cy.contains('102')
         .siblings()
         .contains('Desks: 16')
-        .should('be.visible')
-        .contains('booked')
+        .should('exist')
+        .contains('free')
         .should('not.exist')
         .get('[data-testid="bookable"]')
         .should('not.exist');

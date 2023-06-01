@@ -9,7 +9,8 @@ export default defineConfig({
   viewportHeight: 1024,
   defaultCommandTimeout: 5000,
   e2e: {
-    supportFile: false,
+    scrollBehavior: false,
+    supportFile: 'src/test/e2e/commands.ts',
     setupNodeEvents(on, config) {},
     baseUrl: 'http://localhost:3000',
     specPattern: 'src/test/e2e/**/*.cy.{js,jsx,ts,tsx}',

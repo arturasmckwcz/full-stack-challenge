@@ -18,6 +18,16 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: "Mutation";
+  setRoomBooked?: Maybe<Scalars["Boolean"]>;
+};
+
+export type MutationSetRoomBookedArgs = {
+  booked: Scalars["Boolean"];
+  roomId: Scalars["Int"];
+};
+
 export type Query = {
   __typename?: "Query";
   rooms?: Maybe<Array<Maybe<Room>>>;

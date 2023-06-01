@@ -5,10 +5,13 @@ import fixtures from '../e2e/testFixtures.json';
 import Rooms from '../../components/Rooms';
 import { renderWithContextAndMockedProvider } from '../helpers';
 import * as RoomsContext from '../../contexts/RoomsContext';
+import { RoomsQueryResult } from '../../graphql';
 
-const mockContext = {
-  roomsQueryResult: { loading: false, rooms: fixtures.data.rooms },
-  setRooms: jest.fn(),
+const mockContext: RoomsContext.IRoomsContext = {
+  roomsQueryResult: {
+    loading: false,
+    data: fixtures.data,
+  } as RoomsQueryResult,
   search: '',
   setSearch: jest.fn(),
 };

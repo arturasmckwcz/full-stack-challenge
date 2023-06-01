@@ -1,0 +1,3 @@
+mutation setRoomBooked($roomId: Int!, $booked: Boolean!) {
+  setRoomBooked(roomId: $roomId, booked: $booked)
+}
