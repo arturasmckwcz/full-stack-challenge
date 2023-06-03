@@ -13,11 +13,15 @@ describe('App', () => {
 
   it('should scroll up header while rooms list header should remain visible', () => {
     cy.wait('@graphql').then(() => {
-      cy.get('[data-testid="102"]').scrollTo('top', {
-        ensureScrollable: false,
+      cy.get('.header').then(() => {
+        cy.get('[data-testid="101"]').scrollIntoView({
+          ensureScrollable: false,
+        });
+        cy.wait(1000); // a delay to allow the page to scroll
+        cy.get('.header').should('not.be.visible');
       });
-      cy.invisibleInViewport('.header');
-      cy.get('.rooms-header').should('exist');
+
+      cy.get('.rooms-header').should('be.visible');
     });
   });
 });
