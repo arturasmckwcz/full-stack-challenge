@@ -5,16 +5,20 @@ import { MockedProvider } from '@apollo/client/testing';
 import { IRoomsContext, RoomsProvider } from '../../contexts/RoomsContext';
 import { RoomsDocument } from '../../graphql';
 import fixtures from '../e2e/testFixtures.json';
+import { RoomBookedProvider } from '../../contexts/RoomBookedContext';
 
 export const renderWithContext = (
   ui: React.ReactElement<any, string | JSXElementConstructor<any>>,
   contextValue?: IRoomsContext,
-) =>
-  contextValue ? (
-    <RoomsProvider value={contextValue}>{ui}</RoomsProvider>
-  ) : (
-    <RoomsProvider>{ui}</RoomsProvider>
-  );
+) => (
+  <RoomBookedProvider>
+    {contextValue ? (
+      <RoomsProvider value={contextValue}>{ui}</RoomsProvider>
+    ) : (
+      <RoomsProvider>{ui}</RoomsProvider>
+    )}
+  </RoomBookedProvider>
+);
 
 export const renderWithContextAndMockedProvider = (
   ui: React.ReactElement<any, string | JSXElementConstructor<any>>,

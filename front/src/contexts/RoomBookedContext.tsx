@@ -8,7 +8,7 @@ import {
   SetRoomBookedMutationVariables,
 } from '../graphql';
 
-type RoomBookedMutationResult = MutationTuple<
+export type RoomBookedMutationResult = MutationTuple<
   SetRoomBookedMutationResult,
   SetRoomBookedMutationVariables
 >;

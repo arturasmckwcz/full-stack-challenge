@@ -18,8 +18,6 @@ const RoomBookingButton = ({ room }: Props) => {
   } = useRoomsBookedContext();
   const { loading, error, called, reset } = bookRoomResult;
 
-  const [loadingFlag, setLoadingFlag] = useState(false);
-
   const onClickHandler = async (room: Room) => {
     await bookRoom({
       variables: { roomId: room.id, booked: !room.booked },
